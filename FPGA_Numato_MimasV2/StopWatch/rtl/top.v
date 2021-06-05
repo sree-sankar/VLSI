@@ -52,7 +52,7 @@ module top(input i_clk, 									// INPUT CLOCK
 					.o_digit2(w_digit2),
 					.o_digit3(w_digit3));
 	
-	digit_selector DIGIT_SELECTOR(.i_digit1(w_digit1),
+	segment_selector SEGMENT_SELECTOR(.i_digit1(w_digit1),
 											.i_digit2(w_digit2),
 											.i_digit3(w_digit3),
 											.i_refreshCounter(w_refreshCounter),

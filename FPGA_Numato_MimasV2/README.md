@@ -1,6 +1,6 @@
-#FPGA Project
+# FPGA Project
 
-*Board Used : Numato MimasV2
+* Board Used : Numato MimasV2
 
 
 ## Reference Links

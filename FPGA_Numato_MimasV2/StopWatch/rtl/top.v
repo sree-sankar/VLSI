@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
 
-module top(input i_clk, 									// INPUT CLOCK 
-			  input i_rst,									  	// INPUT RESET
-			  input i_startStop,								// STOP TIMER 
+module top(input i_clk, 								// INPUT CLOCK 
+			  input i_rst,								// INPUT RESET
+			  input i_startStop,						// STOP TIMER 
 			  output [7:0] o_SevenSegment,				// OUTPUT SEVENSEGMENT LED
 			  output [2:0] o_SevenSegmentEnable);		// OUTPUT TO ENABLE SEVENSEGMENT LED
 			  
@@ -31,19 +31,19 @@ module top(input i_clk, 									// INPUT CLOCK
 			  assign o_SevenSegment[0] = i_rst && w_sevenSegment[0];
 
 	clock_divider #(.FREQ(1),.DEFAULT_CLK(100000000)) CLOCK_GENERATOR_1Hz(.i_clk(i_clk),
-																 .i_rst(i_rst),
-												             .o_clk(w_clk1Hz));
+																 		  .i_rst(i_rst),
+												             			  .o_clk(w_clk1Hz));
 																 
 	clock_divider #(.FREQ(10000),.DEFAULT_CLK(100000000)) CLOCK_GENERATOR_10KHz(.i_clk(i_clk),
-																		.i_rst(i_rst),
-																		.o_clk(w_clk10KHz));
+																				.i_rst(i_rst),
+																				.o_clk(w_clk10KHz));
 																		
 	refresh_counter REFRESH_COUNTER(.i_rst(i_rst),
-											  .i_refresh_clk(w_clk10KHz),
-											  .o_refreshCounter(w_refreshCounter));
+									.i_refresh_clk(w_clk10KHz),
+									.o_refreshCounter(w_refreshCounter));
 
 	segment_control SEGMENT_CONTROL(.i_refresh_counter(w_refreshCounter),
-											  .o_segmentEnable(w_sevenSegmentEnable));
+									.o_segmentEnable(w_sevenSegmentEnable));
 
 	timer TIMER(.i_clk(w_clk1Hz),
 					.i_rst(i_rst),
@@ -53,12 +53,12 @@ module top(input i_clk, 									// INPUT CLOCK
 					.o_digit3(w_digit3));
 	
 	segment_selector SEGMENT_SELECTOR(.i_digit1(w_digit1),
-											.i_digit2(w_digit2),
-											.i_digit3(w_digit3),
-											.i_refreshCounter(w_refreshCounter),
-											.o_digit(w_digit));
+									  .i_digit2(w_digit2),
+									  .i_digit3(w_digit3),
+									  .i_refreshCounter(w_refreshCounter),
+									  .o_digit(w_digit));
 	
 	seven_segment_driver SEVEN_SEGMENT(.i_digit(w_digit),
-												  .o_sevenSegmentLed(w_sevenSegment));
+									   .o_sevenSegmentLed(w_sevenSegment));
 	
 endmodule
